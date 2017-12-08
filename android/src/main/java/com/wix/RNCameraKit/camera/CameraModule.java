@@ -1,6 +1,7 @@
 package com.wix.RNCameraKit.camera;
 
 import android.hardware.Camera;
+import android.media.*;
 
 import com.facebook.react.bridge.LifecycleEventListener;
 import com.facebook.react.bridge.Promise;
@@ -15,11 +16,13 @@ public class CameraModule extends ReactContextBaseJavaModule {
 
     private final CameraPermission cameraPermission;
     private Promise checkPermissionStatusPromise;
-
+    private MediaActionSound sound = new MediaActionSound();
+    
     public CameraModule(ReactApplicationContext reactContext) {
         super(reactContext);
         cameraPermission = new CameraPermission();
         checkPermissionWhenActivityIsAvailable();
+        sound.load(MediaActionSound.SHUTTER_CLICK);
     }
 
     private void checkPermissionWhenActivityIsAvailable() {
@@ -107,6 +110,7 @@ public class CameraModule extends ReactContextBaseJavaModule {
 
     @ReactMethod
     public void capture(boolean saveToCameraRoll, final Promise promise) {
+        sound.play(MediaActionSound.SHUTTER_CLICK);
         new Capture(getReactApplicationContext(), saveToCameraRoll).execute(promise);
     }
 

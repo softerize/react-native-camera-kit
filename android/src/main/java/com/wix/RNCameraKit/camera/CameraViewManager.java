@@ -217,6 +217,11 @@ public class CameraViewManager extends SimpleViewManager<CameraView> {
         try {
             Camera camera = CameraViewManager.getCamera();
 
+            //AutoFocus Camera
+            Camera.Parameters params = camera.getParameters();
+            params.setFocusMode(Camera.Parameters.FOCUS_MODE_CONTINUOUS_PICTURE);
+            camera.setParameters(params);
+
             WindowManager wm = (WindowManager) reactContext.getSystemService(Context.WINDOW_SERVICE);
             Display display = wm.getDefaultDisplay();
             Point size = new Point();
