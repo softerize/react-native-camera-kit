@@ -62,11 +62,11 @@ class Orientation {
 
     private static int adaptFrontCamera(int degrees) {
         if (DeviceUtils.isGoogleDevice()) {
-            int result = (getCameraInfo().orientation + degrees) % 360;
+            int result = (getCameraInfo().orientation + degrees * 90) % 360;
             result = (result) % 360;  // compensate the mirror
             return result;
         } else {
-            int result = (getCameraInfo().orientation + degrees + 180) % 360;
+            int result = (getCameraInfo().orientation + degrees * 90 + 360) % 360;
             result = (result) % 360;  // compensate the mirror
             return result;
         }
